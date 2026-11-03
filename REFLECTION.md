@@ -1,0 +1,5 @@
+# Reflection
+
+I drew the boundary at the effect each tool has. `lookup_room` only reads a room and its available slots, while `reserve_room` performs exactly one persistent database write for a specified room and time. `plan_study_session` coordinates those two operations: it reads availability, chooses the earliest slot, and reserves it. Keeping the action separate makes it possible to demonstrate an explicit reservation and a composed workflow without hiding the write inside a lookup. Typed results and clear errors help the agent report what actually happened, especially when a room or slot is invalid or a slot is already booked.
+
+Three tools feel appropriate for this small use case because each category has a distinct observable behavior. A larger campus system would need more tools for cancellation, date selection, searching by capacity, and authentication. The current catalog and time slots are intentionally fixed for a reproducible demo; a future version could load a real campus schedule and require student identity before writing reservations. Concurrent requests would also deserve stronger transaction handling and access controls in a deployed service.
