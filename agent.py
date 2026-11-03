@@ -7,11 +7,13 @@ from pathlib import Path
 
 from agents import Agent, Runner
 from agents.mcp import MCPServerStdio
+from dotenv import load_dotenv
 
 
 async def main() -> None:
+    load_dotenv(Path(__file__).with_name(".env"))
     if not os.environ.get("OPENAI_API_KEY"):
-        raise SystemExit("Set OPENAI_API_KEY before running the agent")
+        raise SystemExit("Set OPENAI_API_KEY in .env or the environment before running the agent")
     server_file = Path(__file__).with_name("server.py")
     async with MCPServerStdio(
         name="Campus Study Rooms",

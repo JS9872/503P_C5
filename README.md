@@ -17,11 +17,12 @@ cd 'C:\Main\School\CSE FALL 4\EECE 503P\HW\C5\Code'
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-$env:OPENAI_API_KEY = 'your-key-here'
+Copy-Item .env.example .env
+# Open .env and replace your-api-key-here with your own API key.
 python agent.py
 ```
 
-An OpenAI API key is needed for live model calls. Set `OPENAI_MODEL` to override the default `gpt-4.1-mini`. Do not commit the key. The server runs automatically as a stdio subprocess of the agent. Reservations persist in `reservations.db`; set `C5_DB_PATH` to use another location.
+An OpenAI API key is needed for live model calls. The agent loads `.env` automatically, and `.gitignore` excludes it from Git. You can instead set `$env:OPENAI_API_KEY` in PowerShell for the current session. Set `OPENAI_MODEL` to override the default `gpt-4.1-mini`. The server runs automatically as a stdio subprocess of the agent. Reservations persist in `reservations.db`; set `C5_DB_PATH` to use another location.
 
 ## Verify and demo
 
