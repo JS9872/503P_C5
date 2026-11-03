@@ -17,7 +17,11 @@ async def main() -> None:
         try:
             async with MCPServerStdio(
                 name="Campus Study Rooms",
-                params={"command": sys.executable, "args": [str(Path(__file__).with_name("server.py"))]},
+                params={
+                    "command": sys.executable,
+                    "args": [str(Path(__file__).with_name("server.py"))],
+                    "env": {"C5_DB_PATH": os.environ["C5_DB_PATH"]},
+                },
                 client_session_timeout_seconds=30,
             ) as server:
                 names = {tool.name for tool in await server.list_tools()}
